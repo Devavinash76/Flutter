@@ -1,0 +1,85 @@
+1. Add the shared_preferences package to your pubspec.yaml file:
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.0.6  # Use the latest version available
+
+Import the package in your Dart file:
+import 'package:shared_preferences/shared_preferences.dart';
+
+To save a value in SharedPreferences, you can use the following code:
+Future<void> saveData() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString('key', 'value'); // Replace 'key' and 'value' with your data
+}
+
+To read the saved data, you can use the following code:
+Future<void> readData() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? data = prefs.getString('key'); // Replace 'key' with your key
+
+  if (data != null) {
+    // Data found in SharedPreferences
+    print('Data: $data');
+  } else {
+    // Data not found
+    print('Data not found');
+  }
+}
+
+To remove data from SharedPreferences, you can use the following code:
+Future<void> removeData() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.remove('key'); // Replace 'key' with the key you want to remove
+}
+
+Clear all data in SharedPreferences:
+Future<void> clearData() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.clear();
+}
+
+You can call these methods from your Flutter widgets to save, read, and remove data from SharedPreferences.
+Here's an example of how to use these methods in a Flutter widget:
+
+class SharedPreferencesExampleWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('SharedPreferences Example'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                saveData();
+              },
+              child: Text('Save Data'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                readData();
+              },
+              child: Text('Read Data'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                removeData();
+              },
+              child: Text('Remove Data'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                clearData();
+              },
+              child: Text('Clear All Data'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
